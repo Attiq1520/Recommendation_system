@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reference Item Selection</title>
+
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+      <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .header h1 {
+            color: red;
+        }
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .search-bar input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        .search-bar button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: red;
+            color: #fff;
+            cursor: pointer;
+        }
+        .movie-list {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .movie-item {
+            margin: 10px;
+            text-align: center;
+        }
+        .movie-item img {
+            width: 150px;
+            height: 225px;
+            border-radius: 10px;
+        }
+        .movie-item button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: red;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Reference Item Selection</h1>
+            <p>Please search for and select a movie that you have watched and enjoyed at some point. In the following step, we show you other movies that might be interesting for you.</p>
+            <p>Note that our survey system only contains a limited number of movies, especially newer movies might be missing. If the movie you would like to select is not available, please try another one.</p>
+        </div>
+        <div class="search-bar">
+            <form method="get" action=".">
+                <input type="text" name="q" placeholder="Search for a movie...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <div class="movie-list">
+            {% if error %}
+                <p>{{ error }}</p>
+            {% endif %}
+            {% for movie in movies %}
+                <div class="movie-item">
+                    <img src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+                    <p>{{ movie.title }}</p>
+                    <button onclick="location.href='{% url 'recommend' movie.id %}'">Choose as reference movie</button>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

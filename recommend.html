@@ -1,0 +1,84 @@
+<!-- recommendations/templates/recommend.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ movie.title }} Recommendations</title>
+
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .movie-details {
+            margin: 20px 0;
+            display: flex;
+        }
+        .movie-details img {
+            width: 200px;
+            height: 300px;
+            border-radius: 10px;
+            margin-right: 20px;
+        }
+        .movie-info {
+            max-width: 600px;
+        }
+        .movie-info h2 {
+            color: red;
+        }
+        .similar-movies {
+            margin-top: 40px;
+        }
+        .similar-movies h2 {
+            color: red;
+        }
+        .movie-list {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .movie-item {
+            margin: 10px;
+            text-align: center;
+        }
+        .movie-item img {
+            width: 150px;
+            height: 225px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="movie-details">
+            <img src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+            <div class="movie-info">
+                <h2>Your Reference Movie: {{ movie.title }}</h2>
+                <p><strong>Year:</strong> {{ movie.year }}</p>
+                <p>{{ movie.plot }}</p>
+                <p><strong>Stars:</strong> {{ movie.actors }}</p>
+                <p><strong>Director:</strong> {{ movie.director }}</p>
+                <p><strong>Genres:</strong> {{ movie.genres }}</p>
+            </div>
+        </div>
+        <div class="similar-movies">
+            <h2>Similar Movies</h2>
+            <div class="movie-list">
+                {% for similar_movie in similar_movies %}
+                    <div class="movie-item">
+                        <img src="{{ similar_movie.poster_url }}" alt="{{ similar_movie.title }}">
+                        <p>{{ similar_movie.title }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
